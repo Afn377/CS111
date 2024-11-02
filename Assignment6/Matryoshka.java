@@ -34,6 +34,10 @@ public class Matryoshka {
      */
     public static void drawDoll(double x, double y, double radius){
         //WRITE YOUR CODE HERE
+
+        StdDraw.circle(x, y, radius);
+        StdDraw.circle(x, y + (3*radius/2), radius / 2);
+        drawFace(x, y + (3*radius/2), radius);
     }
 
      /**
@@ -48,6 +52,12 @@ public class Matryoshka {
      */
     public static void stackDolls(double x, double y, double r, int dolls){
         //WRITE YOUR CODE HERE
+        if(dolls == 0){
+            return;
+        }
+        drawDoll(x, y, r);
+        dolls--;
+        stackDolls(x + r*12/7, y, r*5/7, dolls);
     }
 
     /**
@@ -58,5 +68,7 @@ public class Matryoshka {
      */
     public static void main(String[] args){
         //WRITE YOUR CODE HERE
+        int numberOfDolls = Integer.parseInt(args[0]);
+        stackDolls(0.1,0.1,0.1, numberOfDolls);
     }
 }
