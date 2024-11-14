@@ -22,25 +22,31 @@ public class QuadraticKoch {
      *         Curve
      */
     public static double[][] getCoords(double x0, double y0, double x5, double y5) {
-        // WRITE YOUR CODE HERE
-        if(x5 == x0){
-            double d = y5-y0;
+        if (x5 == x0) {
+            // Vertical line
+            double d = y5 - y0;
             double[][] coords = {
-                {x0, x0, x0-d/3, x0-d/3, x0, x5},
-                {y0, y0+d/3, y0+d/3, y0+2*d/3, y0+2*d/3, y5},
+                {x0, x0, x0 - d / 3, x0 - d / 3, x0, x5},
+                {y0, y0 + d / 3, y0 + d / 3, y0 + 2 * d / 3, y0 + 2 * d / 3, y5},
+            };
+            return coords;
+        } else if (y5 == y0) {
+            // Horizontal line
+            double d = x5 - x0;
+            double[][] coords = {
+                {x0, x0 + d / 3, x0 + d / 3, x0 + 2 * d / 3, x0 + 2 * d / 3, x5},
+                {y0, y0, y0 + d / 3, y0 + d / 3, y0, y5},
+            };
+            return coords;
+        } else{
+            double dy = y5 - y0;
+            double dx = x5 - x0;
+            double[][] coords = {
+                {x0, x0 + dx / 3, x0, x0 + dx / 3, x0 + 2 * dx / 3, x5},
+                {y0, y0 + dy / 3, y0 + 2 * dy / 3, y0 + dy, y0 + 2 * dy / 3, y5},
             };
             return coords;
         }
-        else{
-            double d = x5-x0;
-            double[][] coords = {
-                {x0, x0+d/3, x0+d/3, x0+2*d/3, x0+2*d/3, x5},
-                {y0, y0, y0+d/3, y0+d/3, y0, y5},
-            };
-            
-            return coords;
-        }
-        
     }
 
     /**
@@ -55,7 +61,6 @@ public class QuadraticKoch {
      * @param n  The current order
      */
     public static void koch(double x0, double y0, double x5, double y5, int n) {
-        StdDraw.setPenColor(Color.BLACK);
         if (n == 0) {
             StdDraw.line(x0, y0, x5, y5);
             return;
@@ -81,12 +86,13 @@ public class QuadraticKoch {
      */
     public static void main(String[] args) {
         // WRITE YOUR CODE HERE
-        StdDraw.setCanvasSize(800, 800);
+        StdDraw.setPenColor(Color.BLACK);
+
         int n = Integer.parseInt(args[0]);
         koch(0.25, 0.25, 0.25, 0.75, n);
         koch(0.25, 0.75, 0.75, 0.75, n);
         koch(0.75, 0.75, 0.75, 0.25, n);
         koch(0.75, 0.25, 0.25, 0.25, n);
-
     }
+
 }
