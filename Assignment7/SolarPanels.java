@@ -29,6 +29,15 @@ public class SolarPanels {
      */
     public void setupStreetMap(String streetMapFile) {
         // WRITE YOUR CODE HERE
+        StdIn.setFile(streetMapFile);
+        int l = StdIn.readInt();
+        int w = StdIn.readInt();
+        streetMap = new String[l][w];
+        for (int i = 0; i < l; i++) {
+            for (int j = 0; j < w; j++) {
+                streetMap[i][j] = StdIn.readString();
+            }
+        }
     }
 
     /**
@@ -39,6 +48,7 @@ public class SolarPanels {
      */
     public void setupParkingLots(String parkingLotFile) {
         // WRITE YOUR CODE HERE
+        
     }
 
     /**
