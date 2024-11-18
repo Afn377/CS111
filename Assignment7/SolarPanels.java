@@ -200,7 +200,15 @@ public class SolarPanels {
      */
     public double calculateSavings() {
         // WRITE YOUR CODE HERE
-        return -1; // PLACEHOLDER TO AVOID COMPILATION ERROR - REPLACE WITH YOUR CODE
+        int total = 0;
+        for(int i = 0; i < panels.length; i++){
+            for(int j = 0; j < panels[i].length; j++){
+                if(panels[i][j] != null){
+                    total += panels[i][j].getElectricityGenerated();
+                }
+            }
+        }
+        return total * 0.001 * 365 / 4270000 * 60000000; // PLACEHOLDER TO AVOID COMPILATION ERROR - REPLACE WITH YOUR CODE
     }
 
     /*
