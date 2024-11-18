@@ -38,6 +38,7 @@ public class SolarPanels {
                 streetMap[i][j] = StdIn.readString();
             }
         }
+
     }
 
     /**
@@ -138,6 +139,16 @@ public class SolarPanels {
      */
     public void updateElectricityGenerated() {
         // WRITE YOUR CODE HERE
+        for(int i = 0; i < panels.length; i++){
+            for(int j = 0; j < panels[i].length; j++){
+                if(panels[i][j] != null && panels[i][j].isWorking()){
+                    Panel panel = panels[i][j];
+                    int electricityGenerated = (int)((panel.getActualEfficiency() / 100) * 1500 * 4);
+                    panels[i][j].setElectricityGenerated(electricityGenerated);
+                    System.out.println(electricityGenerated);
+                }
+            }
+        }
     }
 
     /**
