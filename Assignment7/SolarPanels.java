@@ -75,14 +75,14 @@ public class SolarPanels {
     public void insertPanels(double costPerPanel) {
         // WRITE YOUR CODE HERE
         panels = new Panel[streetMap.length][streetMap[0].length];
-        
+        double currentBudget;
+        int currentPanels, maxPanels;
         for(int i = 0; i < lots.length; i++) {
-            double currentBudget = 0;
-            int currentPanels = 0;
             ParkingLot lot = lots[i];
-            int maxPanels = lot.getMaxPanels();
+            currentPanels = 0;
+            currentBudget = lot.getBudget();
+            maxPanels = lot.getMaxPanels();
             for(int j = 0; j < streetMap.length; j++) {
-                currentBudget = lot.getBudget();
                 for(int k = 0; k < streetMap[j].length; k++) {
                     if(streetMap[j][k].equals(lot.getLotName()) && currentPanels < maxPanels && currentBudget >= costPerPanel) {
                         Panel panel = new Panel();
@@ -176,7 +176,16 @@ public class SolarPanels {
      */
     public int updateWorkingPanels() {
         // WRITE YOUR CODE HERE
-        return -1; // PLACEHOLDER TO AVOID COMPILATION ERROR - REPLACE WITH YOUR CODE
+        int count = 0;
+        for(int i = 0; i < panels.length; i++){
+            for(int j = 0; j < panels[i].length; j++){
+                if(panels[i][j] != null && !panels[i][j].isWorking()){
+                    panels[i][j].setIsWorking(true);
+                }
+                count ++;
+            }
+        }
+        return count; // PLACEHOLDER TO AVOID COMPILATION ERROR - REPLACE WITH YOUR CODE
     }
 
     /**
