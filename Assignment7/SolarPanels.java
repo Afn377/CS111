@@ -48,7 +48,17 @@ public class SolarPanels {
      */
     public void setupParkingLots(String parkingLotFile) {
         // WRITE YOUR CODE HERE
-        
+        StdIn.setFile(parkingLotFile);
+        int n = StdIn.readInt();
+        lots = new ParkingLot[n];
+        for (int i = 0; i < n; i++) {
+            String name = StdIn.readString();
+            int maxPanels = StdIn.readInt();
+            double budget = StdIn.readDouble();
+            int energyCapacity = StdIn.readInt();
+            double panelEfficiency = StdIn.readDouble();
+            lots[i] = new ParkingLot(name, maxPanels, budget, energyCapacity, panelEfficiency);
+        }
     }
 
     /**
