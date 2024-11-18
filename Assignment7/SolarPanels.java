@@ -73,7 +73,35 @@ public class SolarPanels {
      */
     public void insertPanels(double costPerPanel) {
         // WRITE YOUR CODE HERE
+        panels = new Panel[streetMap.length][streetMap[0].length];
+        
+        for(int i = 0; i < lots.length; i++) {
+            double currentBudget = 0;
+            int currentPanels = 0;
+            ParkingLot lot = lots[i];
+            int maxPanels = lot.getMaxPanels();
+            for(int j = 0; j < streetMap.length; j++) {
+                currentBudget = lot.getBudget();
+                for(int k = 0; k < streetMap[j].length; k++) {
+                    if(streetMap[j][k].equals(lot.getLotName()) && currentPanels < maxPanels && currentBudget >= costPerPanel) {
+                        Panel panel = new Panel();
+                        panel.setRatedEfficiency(lot.getPanelEfficiency());
+                        panel.setMaxOutput(lot.getEnergyCapacity());
+                        panel.setActualEfficiency(lot.getPanelEfficiency());
+                        if(StdRandom.uniform() < 0.95) {
+                            panel.setIsWorking(true);
+                        } else {
+                            panel.setIsWorking(false);
+                        }
+                        panels[j][k] = panel;
+                        currentBudget -= costPerPanel;
+                    }
+                }
+            }
+        }
+
     }
+
 
     /**
      * Given a temperature and coefficient, update panels' actual efficiency
@@ -89,6 +117,15 @@ public class SolarPanels {
      */
     public void updateActualEfficiency(int temperature, double coefficient) {
         // WRITE YOUR CODE HERE
+        for(int i = 0; i < panels.length; i++){
+            for(int j = 0; j < panels[i].length; j++){
+                if(panels[i][j] != null){
+                    Panel panel = panels[i][j];
+                    double actualEfficiency = panel.getRatedEfficiency() - (coefficient * (temperature - 77));
+                    panel.setActualEfficiency(actualEfficiency);
+                }
+            }
+        }
     }
 
     /**
