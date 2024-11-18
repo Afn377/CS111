@@ -159,7 +159,15 @@ public class SolarPanels {
      */
     public int countWorkingPanels(String parkingLot) {
         // WRITE YOUR CODE HERE
-        return -1; // PLACEHOLDER TO AVOID COMPILATION ERROR - REPLACE WITH YOUR CODE
+        int count = 0;
+        for(int i = 0; i < panels.length; i++){
+            for(int j = 0; j < panels[i].length; j++){
+                if(panels[i][j] != null && panels[i][j].isWorking() && streetMap[i][j].equals(parkingLot)){
+                    count++;
+                }
+            }
+        }
+        return count; // PLACEHOLDER TO AVOID COMPILATION ERROR - REPLACE WITH YOUR CODE
     }
 
     /**
