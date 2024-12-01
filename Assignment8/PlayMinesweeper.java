@@ -27,19 +27,6 @@ public class PlayMinesweeper {
      * Overloaded constructor: initalizes a Play Minesweeper object
      * based on a given 2D array of squares and the number of flags.
      * @param grid the 2D array of squares
-     * @param flagCount the flag count
-     */
-    public PlayMinesweeper(Square[][] grid, int flagCount) {
-        StdRandom.setSeed(2024);
-        this.grid = grid;
-        this.flagCount = flagCount;
-    }
-
-    /**
-     * DO NOT UPDATE OR REMOVE THIS METHOD
-     * Overloaded constructor: initalizes a Play Minesweeper object
-     * based on a given 2D array of squares and the number of flags.
-     * @param grid the 2D array of squares
      * @param totalMines the number of mines in the grid
      */
     public PlayMinesweeper(Square[][] grid, int totalMines) {
