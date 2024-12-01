@@ -85,6 +85,20 @@ public class PlayMinesweeper {
         StdIn.setFile(inputFile); // DO NOT REMOVE OR EDIT THIS LINE
 
         /* WRITE YOUR CODE HERE */
+
+        int m = StdIn.readInt();
+        int n = StdIn.readInt();
+        grid = new Square[m][n];
+        for (int i = 0; i < m; i++)
+            for (int j = 0; j < n; j++)
+                grid[i][j] = new Square();
+        while(!StdIn.isEmpty()) {
+            int row = StdIn.readInt();
+            int col = StdIn.readInt();
+            StdIn.readLine();
+            grid[row][col].setSqNum(-1);
+            totalMines++;
+        }
     }
 
     /**
