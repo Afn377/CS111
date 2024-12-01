@@ -110,6 +110,37 @@ public class PlayMinesweeper {
      */
     public void fillGrid() {
         /* WRITE YOUR CODE HERE */
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j < grid[0].length; j++){
+                if(grid[i][j].getSqNum() == -1) {
+                    if(i > 0 && j > 0 && grid[i-1][j-1].getSqNum() != -1) {
+                        grid[i-1][j-1].increaseSqNum();
+                    }
+                    if(i > 0 && grid[i-1][j].getSqNum() != -1) {
+                        grid[i-1][j].increaseSqNum();
+                    }
+                    if(i > 0 && j < grid[0].length - 1 && grid[i-1][j+1].getSqNum() != -1) {
+                        grid[i-1][j+1].increaseSqNum();
+                    }
+                    if(j > 0 && grid[i][j-1].getSqNum() != -1) {
+                        grid[i][j-1].increaseSqNum();
+                    }
+                    if(j < grid[0].length - 1 && grid[i][j+1].getSqNum() != -1) {
+                        grid[i][j+1].increaseSqNum();
+                    }
+                    if(i < grid.length - 1 && j > 0 && grid[i+1][j-1].getSqNum() != -1) {
+                        grid[i+1][j-1].increaseSqNum();
+                    }
+                    if(i < grid.length - 1 && grid[i+1][j].getSqNum() != -1) {
+                        grid[i+1][j].increaseSqNum();
+                    }
+                    if(i < grid.length - 1 && j < grid[0].length - 1 && grid[i+1][j+1].getSqNum() != -1) {
+                        grid[i+1][j+1].increaseSqNum();
+                    }
+
+                }
+            }
+        }
     }
 
     /**
@@ -131,7 +162,40 @@ public class PlayMinesweeper {
      */
     public boolean openSquare(int row, int col) {
         /* WRITE YOUR CODE HERE */
-        return false; // HERE TO AVOID COMPILATION ERROR -> REPLACE WITH YOUR CODE
+        if(grid[row][col].getSqState() == State.FLAGGED) {
+            flagCount--;
+        }
+        if(grid[row][col].getSqNum() == -1) {
+            return false;
+        }
+        grid[row][col].setSqState(State.OPEN);
+        if(grid[row][col].getSqNum() == 0) {
+            if(row > 0 && col > 0 && grid[row-1][col-1].getSqState() == State.CLOSED) {
+                openSquare(row-1, col-1);
+            }
+            if(row > 0 && grid[row-1][col].getSqState() == State.CLOSED) {
+                openSquare(row-1, col);
+            }
+            if(row > 0 && col < grid[0].length - 1 && grid[row-1][col+1].getSqState() == State.CLOSED) {
+                openSquare(row-1, col+1);
+            }
+            if(col > 0 && grid[row][col-1].getSqState() == State.CLOSED) {
+                openSquare(row, col-1);
+            }
+            if(col < grid[0].length - 1 && grid[row][col+1].getSqState() == State.CLOSED) {
+                openSquare(row, col+1);
+            }
+            if(row < grid.length - 1 && col > 0 && grid[row+1][col-1].getSqState() == State.CLOSED) {
+                openSquare(row+1, col-1);
+            }
+            if(row < grid.length - 1 && grid[row+1][col].getSqState() == State.CLOSED) {
+                openSquare(row+1, col);
+            }
+            if(row < grid.length - 1 && col < grid[0].length - 1 && grid[row+1][col+1].getSqState() == State.CLOSED) {
+                openSquare(row+1, col+1);
+            }
+        }
+        return true;
     }
 
     /**
@@ -152,6 +216,14 @@ public class PlayMinesweeper {
      */
     public void placeFlag(int row, int col) {
         /* WRITE YOUR CODE HERE */
+
+        if(grid[row][col].getSqState() == State.FLAGGED) {
+            grid[row][col].setSqState(State.CLOSED);
+            flagCount--;
+        } else if(grid[row][col].getSqState() == State.CLOSED){
+            grid[row][col].setSqState(State.FLAGGED);
+            flagCount++;
+        }
     }
 
     /**
@@ -162,9 +234,15 @@ public class PlayMinesweeper {
      */
     public boolean checkWinCondition() {
         /* WRITE YOUR CODE HERE */
-        return true; // HERE TO AVOID COMPILATION ERROR -> REPLACE WITH YOUR CODE
+        for(int i=0; i<grid.length; i++) {
+            for(int j=0; j<grid[0].length; j++) {
+                if(grid[i][j].getSqNum() != -1 && grid[i][j].getSqState() != State.OPEN)
+                    return false;
+    
+            }
+        }
+        return true;
     }
-
     /**
      * This method sets the dimension of the 2D array of squares
      * and the total mines based on the given difficulty:
@@ -177,7 +255,24 @@ public class PlayMinesweeper {
      */
     public void chooseDifficulty(String level) {
         /* WRITE YOUR CODE HERE */
+        if(level.equals("Beginner")) {
+            grid = new Square[8][8];
+            totalMines = 10;
+        } else if(level.equals("Intermediate")) {
+            grid = new Square[16][16];
+            totalMines = 40;
+        } else if(level.equals("Advanced")) {
+            grid = new Square[30][16];
+            totalMines = 99;
+        }
+
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j < grid[0].length; j++) {
+                grid[i][j] = new Square();
+            }
+        }
     }
+
 
     /**
      * This method places mines in the 2D array of squares according
@@ -204,6 +299,15 @@ public class PlayMinesweeper {
      */
     public void playRandom(String level, int row, int col) {
         /* WRITE YOUR CODE HERE */
+        chooseDifficulty(level);
+        while(totalMines > 0) {
+            int r = StdRandom.uniform(grid.length);
+            int c = StdRandom.uniform(grid[0].length);
+            if(r != row && c != col && grid[r][c].getSqNum() != -1) {
+                grid[r][c].setSqNum(-1);
+                totalMines--;
+            }
+        }
     }
 
     /**
