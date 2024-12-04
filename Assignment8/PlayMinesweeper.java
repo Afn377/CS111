@@ -163,35 +163,36 @@ public class PlayMinesweeper {
     public boolean openSquare(int row, int col) {
         /* WRITE YOUR CODE HERE */
         if(grid[row][col].getSqState() == State.FLAGGED) {
+            StdOut.println("FLAGGED");
             flagCount--;
         }
+        grid[row][col].setSqState(State.OPEN);
         if(grid[row][col].getSqNum() == -1) {
             return false;
         }
-        grid[row][col].setSqState(State.OPEN);
         if(grid[row][col].getSqNum() == 0) {
-            if(row > 0 && col > 0 && grid[row-1][col-1].getSqState() == State.CLOSED) {
+            if(row > 0 && col > 0 && grid[row-1][col-1].getSqState() != State.OPEN) {
                 openSquare(row-1, col-1);
             }
-            if(row > 0 && grid[row-1][col].getSqState() == State.CLOSED) {
+            if(row > 0 && grid[row-1][col].getSqState() != State.OPEN) {
                 openSquare(row-1, col);
             }
-            if(row > 0 && col < grid[0].length - 1 && grid[row-1][col+1].getSqState() == State.CLOSED) {
+            if(row > 0 && col < grid[0].length - 1 && grid[row-1][col+1].getSqState() != State.OPEN) {
                 openSquare(row-1, col+1);
             }
-            if(col > 0 && grid[row][col-1].getSqState() == State.CLOSED) {
+            if(col > 0 && grid[row][col-1].getSqState() != State.OPEN) {
                 openSquare(row, col-1);
             }
-            if(col < grid[0].length - 1 && grid[row][col+1].getSqState() == State.CLOSED) {
+            if(col < grid[0].length - 1 && grid[row][col+1].getSqState() != State.OPEN) {
                 openSquare(row, col+1);
             }
-            if(row < grid.length - 1 && col > 0 && grid[row+1][col-1].getSqState() == State.CLOSED) {
+            if(row < grid.length - 1 && col > 0 && grid[row+1][col-1].getSqState() != State.OPEN) {
                 openSquare(row+1, col-1);
             }
-            if(row < grid.length - 1 && grid[row+1][col].getSqState() == State.CLOSED) {
+            if(row < grid.length - 1 && grid[row+1][col].getSqState() != State.OPEN) {
                 openSquare(row+1, col);
             }
-            if(row < grid.length - 1 && col < grid[0].length - 1 && grid[row+1][col+1].getSqState() == State.CLOSED) {
+            if(row < grid.length - 1 && col < grid[0].length - 1 && grid[row+1][col+1].getSqState() != State.OPEN) {
                 openSquare(row+1, col+1);
             }
         }
