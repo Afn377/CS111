@@ -235,6 +235,8 @@ public class RURacing {
      */
     public static void racer1(char[][] map) {
 	// WRITE YOUR CODE HERE
+    map[0][0] = '>';
+    System.out.println("Racer1 is at: (0,0)");
     }
 
     /**

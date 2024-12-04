@@ -13,5 +13,10 @@ public class Driver {
         // To test your implementation you must create your own test cases
         // and verify that your implementation is correct. All methods will be
         // tested through RURacing.methodName() calls.
+
+        RURacing race = new RURacing();
+        int[] points = race.readTrackFile("track0.in");
+        char[][] map = race.createRaceway(points);
+        race.printMap(map);
     }
 }
