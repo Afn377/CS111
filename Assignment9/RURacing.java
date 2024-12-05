@@ -326,10 +326,10 @@ public class RURacing {
             position = moveRacer(position[0], position[1], 1, map);
             if(i + 1  == distance)
                 break;
-            for(int j = 0; j < distance; j++){
+            for(int j = 0; j < distance-1; j++){
                 System.out.println("Racer4 is at: (" + position[0] + "," + position[1] + ")");
             }
         }
-        
+        System.out.println("Racer4 is at: (0,0)");
     }
 }
