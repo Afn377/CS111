@@ -18,5 +18,7 @@ public class Driver {
         int[] points = race.readTrackFile("track0.in");
         char[][] map = race.createRaceway(points);
         race.printMap(map);
+        race.racer4(map);
+        race.printMap(map);
     }
 }

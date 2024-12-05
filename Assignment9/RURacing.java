@@ -251,6 +251,30 @@ public class RURacing {
      */
     public static void racer2(char[][] map) {
 	// WRITE YOUR CODE HERE
+        map[0][0] = '>';
+        int n = 1;
+        int[] position = {0, 0};
+        int distance = 0;
+        while(true){
+            position = moveRacer(position[0], position[1], 1, map);
+            distance++; 
+            if(position[0] == 0 & position[1] == 0){
+                break;
+            }
+        }
+        while(true){
+            position = moveRacer(position[0], position[1], n, map);
+            System.out.println("Racer2 is at: (" + position[0] + "," + position[1] + ")");
+            n *= 2;
+            distance -= n;
+            if(distance <= 0){
+                System.out.println("Racer2 is at: (0,0)");
+                map[position[1]][position[0]] = ROAD;
+                map[0][0] = '^';
+                break;
+            }
+            
+        }
     }
 
     /**
@@ -265,6 +289,15 @@ public class RURacing {
      */
     public static void racer3(char[][] map) {
 	// WRITE YOUR CODE HERE
+        int[] position = {0, 0};
+        map[0][0] = '>';
+        while(true){
+            position = moveRacer(position[0], position[1], 1, map);
+            System.out.println("Racer3 is at: (" + position[0] + "," + position[1] + ")");
+            if(position[0] == 0 & position[1] == 0){
+                break;
+            }
+        }
     }
 
     /**
@@ -278,6 +311,25 @@ public class RURacing {
      */
     public static void racer4(char[][] map) { // starting X and starting Y
 	// WRITE YOUR CODE HERE
+        map[0][0] = '>';
+        int[] position = {0, 0};
+        int distance = 0;
+        while(true){
+            position = moveRacer(position[0], position[1], 1, map);
+            distance++; 
+            if(position[0] == 0 & position[1] == 0){
+                break;
+            }
+        }
 
+        for(int i = 0; i < distance; i++){
+            position = moveRacer(position[0], position[1], 1, map);
+            if(i + 1  == distance)
+                break;
+            for(int j = 0; j < distance; j++){
+                System.out.println("Racer4 is at: (" + position[0] + "," + position[1] + ")");
+            }
+        }
+        
     }
 }
